@@ -1,0 +1,26 @@
+<article class="card" *ngIf="weather">
+    <div class="dia">
+        <span>{{ ((weather.date)* 1000 | date) || 'Hoy' }}</span>
+    </div>
+    <div class="icon">
+        <app-weather-icon [code]="weather.id"></app-weather-icon>
+    </div>
+    <div class="temp">
+        <p>Temperatura</p>
+        <p class="big">{{ weather.temp }}°</p>
+    </div>
+    <ng-container *ngIf="weather.minMaxTemp">
+        <div class="low-temp" >
+            {{ weather.minMaxTemp.min }}°
+            <span>Minima</span>
+        </div>
+        <div class="high-temp">
+            {{ weather.minMaxTemp.max }}°
+            <span>Maxima</span>
+        </div>
+    </ng-container>
+    <div class="description">
+        <h2>{{ weather.name }}</h2>
+        <p>{{ weather.description }}</p>
+    </div>
+</article>

@@ -40,10 +40,10 @@ export class CurrentWeatherService {
       )
 
     
-    this.get( {
+    this.get({
       lat: 16.853109,
       lon: -99.823654
-    } );
+    });
   }
 
   get( coords: Coords ){
