@@ -1,1 +1,4 @@
-<app-weather-card [weather]="weatherSvc.weather$ | async"></app-weather-card>
+<div [@showUpElement]>
+    <app-weather-card [weather]="weatherSvc.weather$ | async"></app-weather-card>
+</div>
+
