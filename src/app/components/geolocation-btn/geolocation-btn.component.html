@@ -1,0 +1,7 @@
+<div class="card-geolocation" *ngIf="!(geolocationSvc.coords$ | async)">
+    <p>Activa tu ubicación para obtener el clima de tu localización actual.</p>
+    <button (click)="geolocationSvc.requestGeolocation()">
+        Activar mi ubicación
+    </button>
+</div>
+<!-- {{ geolocationSvc.coords$ | async | json }} -->

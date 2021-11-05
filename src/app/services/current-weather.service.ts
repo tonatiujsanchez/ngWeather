@@ -8,6 +8,7 @@ import { map } from "rxjs/operators";
 
 import { Coords } from '../interfaces/coords.interface';
 import { Weather } from '../interfaces/weather.interface';
+import { GeolocationService } from './geolocation.service';
 
 @Injectable({
   providedIn: 'root'
@@ -22,8 +23,10 @@ export class CurrentWeatherService {
   private key: string = environment.key;
 
   constructor(
-    private http: HttpClient
+    private http: HttpClient,
+    private geolocationSvc: GeolocationService
   ) { 
+
     this.weather$ = this.weatherSubjet.asObservable()
       .pipe(
         map( (data:any)=>{ 
@@ -37,20 +40,21 @@ export class CurrentWeatherService {
           }
           return weather;
          })
-      )
+      );
+    
+    this.geolocationSvc.coords$.subscribe(
+      (coords: Coords)=>{ this.get( coords ) }
+    );
 
     
-    this.get({
-      lat: 16.853109,
-      lon: -99.823654
-    });
+    
   }
 
   get( coords: Coords ){
 
     let args: string = `?lat=${coords.lat}&lon=${coords.lon}&appid=${this.key}&units=metric`;
 
-    if(isDevMode()){      
+    if(false){      
       this.http.get('assets/weather.json').subscribe(this.weatherSubjet);
     }else{
       this.http.get(this.endpoint + args).subscribe(this.weatherSubjet);
